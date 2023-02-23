@@ -2,10 +2,10 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const { createServer } = require("http");
-const {executeTbl } = require("./config/index")
-const cors = require("cors")
+const { executeTbl } = require("./config/index");
+const cors = require("cors");
 
-const routerAPI = require("./routes/index")
+const routerAPI = require("./routes/index");
 
 const middlewareLogRequest = require("./middleware/logs");
 const errorHandling = require("./middleware/errorHandling");
@@ -13,18 +13,21 @@ const errorHandling = require("./middleware/errorHandling");
 const app = express();
 const PORT = process.env.PORT;
 const server = createServer(app);
-executeTbl()
+executeTbl();
 
-app.use(cors())
-app.use(bodyParser.json()).use(bodyParser.urlencoded({extended: true}));
-app.use(middlewareLogRequest)
-app.use("/assets", express.static("public/images/users"))
-app.use("/assets", express.static("public/images/pengelola"))
-app.use("/assets", express.static("public/images/artikel"))
+app.use(cors());
+app.use(bodyParser.json()).use(bodyParser.urlencoded({ extended: true }));
+app.use(middlewareLogRequest);
+app.use("/assets", express.static("public/images/users"));
+app.use("/assets", express.static("public/images/pengelola"));
+app.use("/assets", express.static("public/images/artikel"));
 
-app.use( routerAPI )
-app.use(errorHandling)
+app.use(routerAPI);
+app.use(errorHandling);
+
+// cuman untuk cek kalau server udah running
+app.get("/", (req, res) => res.send("Server already start!"));
 
 server.listen(PORT, () => {
-   console.log(`Server has been running in http://localhost:${PORT}`);
+  console.log(`Server has been running in http://localhost:${PORT}`);
 });
