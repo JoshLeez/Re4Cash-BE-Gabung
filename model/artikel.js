@@ -1,10 +1,10 @@
-const {query} = require("../config/query");
+const { query } = require("../config/query");
 
 const artikelTbl = async () => {
-   try {
-      const checkTable = await query(`SHOW TABLES LIKE 'artikel'`);
-      if (checkTable.length === 0) {
-         await query(`
+  try {
+    const checkTable = await query(`SHOW TABLES LIKE 'artikel'`);
+    if (checkTable.length === 0) {
+      await query(`
          CREATE TABLE artikel (
             id INT NOT NULL PRIMARY KEY UNIQUE AUTO_INCREMENT,
             judul_artikel VARCHAR(100) NOT NULL,
@@ -18,23 +18,25 @@ const artikelTbl = async () => {
             update_by BIGINT DEFAULT NULL
          );
          `);
-      }
-   } catch (error) {
-      console.log("artikel tabel " + error);
-   };
+    }
+  } catch (error) {
+    console.log("artikel tabel " + error);
+  }
 };
 
 const getArtikel = async () => {
-   try {
-      const sql = await query(`SELECT * from artikel`)
+  try {
+    const sql = await query(
+      `SELECT id_artikel, judul_artikel, kategori, sub_kategori, artikel, foto_artikel from artikel`
+    );
 
-      return sql;
-   } catch (error) {
-      console.log("model" + error);
-   }
-}
+    return sql;
+  } catch (error) {
+    console.log("model" + error);
+  }
+};
 
 module.exports = {
-   artikelTbl,
-   getArtikel
-}
+  artikelTbl,
+  getArtikel,
+};

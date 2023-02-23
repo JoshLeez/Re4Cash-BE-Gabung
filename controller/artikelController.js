@@ -1,18 +1,19 @@
-const artikelModel = require("../model/artikel")
+const artikelModel = require("../model/artikel");
 
 const tampilArtikel = async (req, res) => {
-   try {
-      const artikel = await artikelModel.getArtikel()
+  try {
+    const artikel = await artikelModel.getArtikel();
 
-      res.json({
-         message : "Data artikel berhasil ditampilkan",
-         data : artikel
-      })
-   } catch (error) {
-      console.log(error)
-   }
-}
+    console.log(artikel);
+    res.status(200).json({
+      message: "Data artikel berhasil ditampilkan",
+      data: artikel,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
-   tampilArtikel
-}
+  tampilArtikel,
+};
